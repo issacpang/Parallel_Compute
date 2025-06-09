@@ -23,5 +23,6 @@ An example mesh showing quadrilateral elements and node numbering:
 ## File Structure
 
 - `main.py` – Main execution file
-- `model.py`, `ddm.py`, etc. – Domain decomposition logic
+- `parition.py`, `ddm.py`, etc. – Domain decomposition logic
+- `model.py` - a single OpenSees model to validate the parallel computing results
 
