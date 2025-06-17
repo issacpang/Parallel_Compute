@@ -12,7 +12,7 @@ It is intended for illustrating how computational domains can be divided and lab
 
 An example mesh showing quadrilateral elements and node numbering:
 
-![Finite Element Domain](finite_element_domain_large_font.png)
+![Finite Element Domain](finite_element_domain.png)
 
 ## Technologies Used
 
@@ -23,5 +23,6 @@ An example mesh showing quadrilateral elements and node numbering:
 ## File Structure
 
 - `main.py` – Main execution file
-- `model.py`, `ddm.py`, etc. – Domain decomposition logic
+- `ddm.py`, etc. – Domain decomposition logic
+-  `model.py` - Opensees model to validate the results of parallel computing.
 
