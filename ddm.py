@@ -112,7 +112,7 @@ class Subdomain:
             raise AttributeError("Partition object lacks node_tags")
 
         ops.model("BasicBuilder", "-ndm", 2, "-ndf", 2)
-        partition.populate(self)
+        partition.populate(ops)
         ops.system("FullGeneral")
         ops.numberer("Plain")
         ops.constraints("Plain")
