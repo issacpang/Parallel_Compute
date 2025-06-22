@@ -1,4 +1,4 @@
-from openseespy.opensees import *
+from opensees.openseespy import *
 
 # Define the 2D model with 2 DOFs per node
 model("BasicBuilder", "-ndm", 2, "-ndf", 2)
