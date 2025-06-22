@@ -12,6 +12,7 @@ class LeftQuadPartition:
         self.fixed_nodes = [1]
         self.nodal_loads = {4: [0.0, -2.0e3]}
 
+
     def populate(self, model):
         # 1) Nodes
         model.node(1, 0.0, 0.0)
@@ -32,9 +33,8 @@ class LeftQuadPartition:
         model.fix(1, 1, 1)
 
         # 5) Loads
-        model.timeSeries("Constant", 1)
-        model.pattern("Plain", 1, 1)
-        model.load(4, 0.0, -2.0e3)
+        model.pattern("Plain", 1, "Constant")
+        model.load(4, 0.0, -2.0e3, pattern=1)
 
     def get_nodal_loads(self):
         return self.nodal_loads
@@ -42,11 +42,15 @@ class LeftQuadPartition:
     def get_dof_partition(self):
         free_nodes = [n for n in self.node_tags if n not in self.fixed_nodes]
         node_to_dof = {n: i * 2 for i, n in enumerate(free_nodes)}
-        interior_tags = [t for t in [1, 4, 7] if t not in self.fixed_nodes]
+        interior_tags  = [t for t in [1, 4, 7] if t not in self.fixed_nodes]
         interface_tags = [t for t in [2, 5, 8] if t not in self.fixed_nodes]
         interior_dofs = [node_to_dof[t] + d for t in interior_tags for d in (0,1)]
         interface_dofs = [node_to_dof[t] + d for t in interface_tags for d in (0,1)]
-        return {"interior": interior_dofs, "interface": interface_dofs}
+
+        return {
+                "interior":  interior_dofs,
+                "interface": interface_dofs
+        }
 
 # ------------------------------------------------------------------
 class RightQuadPartition:

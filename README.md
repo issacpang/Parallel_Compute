@@ -18,7 +18,7 @@ An example mesh showing quadrilateral elements and node numbering:
 
 - Python
 - Parallel Domain Decomposition
-- Finite Element concepts
+- Finite Element concepts with [xara](https://xara.so)
 
 ## File Structure
 
