@@ -14,63 +14,23 @@ An example mesh showing quadrilateral elements and node numbering:
 
 ![Finite Element Domain](image/finite_element_domain.png)
 
-## Technologies Used
-
-- Python
-- Parallel Domain Decomposition
-- Finite Element concepts
-- OpenSees
-
 ## Direct Schur Method
 
- A finite element domain, which is composed by 4 quadrilateral elements. Cut the domain into different parts (left and right subdomain), formulate the stiffness matrix according in different CPU cores. In each subdomain, there are internal DOFs and interface DOFs. Compute the Schur complements (condense all internal Dofs), assemble the interface matrix, and solve the interface displacements. With the interface displacements, go back each subdomain and solve the internal displacements. Also see Fig.~\ref{fig:finite_element_domain}. For each subdomain, the finite element system can be written as:
-    
-    \begin{equation}
-        \begin{bmatrix}
-        K_{II} & K_{IG} \\
-        K_{GI} & K_{GG}
-        \end{bmatrix}
-        \begin{bmatrix}
-        u_I \\
-        u_\Gamma
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-        R_I \\
-        R_\Gamma
-        \end{bmatrix}
-    \end{equation}
-    
-    By eliminating the interior degrees of freedom \( u_I \), we obtain the local Schur complement system:
-    
-    \begin{equation}
-        S^{(i)} u_\Gamma = g^{(i)}
-    \end{equation}
-    
-    where
-    
-    \begin{equation}
-        S^{(i)} = K_{GG}^{(i)} - K_{GI}^{(i)} (K_{II}^{(i)})^{-1} K_{IG}^{(i)}, \quad
-    \end{equation}
-    
-    \begin{equation}
-        g^{(i)} = R_\Gamma^{(i)} - K_{GI}^{(i)} (K_{II}^{(i)})^{-1} R_I^{(i)}
-    \end{equation}
-    
-    The global interface system is then assembled as:
-    
-    \begin{equation}
-        \left( \sum_i S^{(i)} \right) u_\Gamma = \sum_i g^{(i)}
-    \end{equation}
-    Once the interface displacement \( u_\Gamma \) is obtained by solving the global system, it is substituted back into the original system to compute the internal displacements \( u_I \) for each subdomain. This is done by solving:
+The first method we have implemented is the so-called **Direct Schur Method**, and its process is summarized as follows:
 
-    \begin{equation}
-        u_I = (K_{II})^{-1} (R_I - K_{IG} u_\Gamma)
-    \end{equation}
+1. Compute the **Schur complements** by condensing the internal DOFs.
+2. Assemble the **global interface matrix** and solve for the interface displacements.
+3. Use the interface displacements to recover the internal displacements within each subdomain.
     
 ![Direct Schur Method](image/direct_schur.png)
 
 ## Alternating Schwarz Method
+
+We have also implemented **Alternating Schwarz Method**:
+
+1. The Schwarz method decomposes the domain into overlapping subdomains.  
+2. Each subdomain solves its local problem iteratively using boundary info from neighbors.  
+3. Solutions are combined and updated until the global solution converges.
 
 ![Direct Schur Method](image/schwarz.png)
 
