@@ -32,6 +32,6 @@ We have also implemented **Alternating Schwarz Method**:
 2. Each subdomain solves its local problem iteratively using boundary info from neighbors.  
 3. Solutions are combined and updated until the global solution converges.
 
-![Direct Schur Method](image/schwarz.png)
+![Direct Schur Method](image/schwarz_revised.png)
 
 
