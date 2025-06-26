@@ -19,10 +19,14 @@ An example mesh showing quadrilateral elements and node numbering:
 - Python
 - Parallel Domain Decomposition
 - Finite Element concepts
+- OpenSees
 
-## File Structure
+## Direct Schur Method
 
-- `main.py` – Main execution file
-- `ddm.py`, etc. – Domain decomposition logic
--  `model.py` - Opensees model to validate the results of parallel computing.
+![Direct Schur Method](image/schur.png)
+
+## Alternating Schwarz Method
+
+![Direct Schur Method](image/schwarz.png)
+
 
