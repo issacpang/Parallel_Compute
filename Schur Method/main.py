@@ -2,7 +2,7 @@ from ddm import Domain
 from partitions import GlobalQuadMesh, LeftQuadPartition, RightQuadPartition
 
 # 1) Build one global mesh: 6×2 quads (so each half is 3×2)
-global_mesh = GlobalQuadMesh(nx=6, ny=3)
+global_mesh = GlobalQuadMesh(nx=6, ny=2)
 
 # 2) Create left/right partitions sharing the global numbering
 #    - left fixed at node 1; load at node 11 (global tag for (0.5,0.5))

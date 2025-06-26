@@ -3,20 +3,17 @@ import pickle
 from multiprocessing import Process, Queue
 import openseespy.opensees as ops
 
-# -----------------------------------------------------------------------------
-#  Domain  – master process: spawns workers, assembles Schur system, shuts down
-# -----------------------------------------------------------------------------
 class Domain:
     def __init__(self, partitions):
         """
         partitions: list of PartitionBuilder instances
         """
         self.partitions        = partitions
-        self.workers           = []        # list of Process
-        self.to_subdomain      = []        # list of Queue (to worker)
-        self.from_subdomain    = []        # list of Queue (from worker)
-        self.interface_guess   = {}        # {(node, dof): value}
-        self.interface_order   = []        # [(node, dof), …] in global order
+        self.workers           = []       
+        self.to_subdomain      = []        
+        self.from_subdomain    = []       
+        self.interface_guess   = {}       
+        self.interface_order   = []        
 
         # Spawn one Subdomain worker per partition
         for part in partitions:
@@ -102,9 +99,6 @@ class Domain:
             else:
                 raise RuntimeError(f"Unknown message to subdomain worker: {msg}")
 
-# -----------------------------------------------------------------------------
-# Subdomain – local model and Schur contribution
-# -----------------------------------------------------------------------------
 class Subdomain:
     def __init__(self, partition):
         self.partition = partition
